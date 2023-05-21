@@ -10,13 +10,13 @@
   "monorepo": true,
   "root": "apps/test-ms-v2",
   "projects": {
-    "test-ms-v2": {
+    "auth": {
       "type": "application",
-      "root": "apps/test-ms-v2",
+      "root": "apps/auth",
       "entryFile": "main",
-      "sourceRoot": "apps/test-ms-v2/src",
+      "sourceRoot": "apps/auth/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/test-ms-v2/tsconfig.app.json"
+        "tsConfigPath": "apps/auth/tsconfig.app.json"
       }
     },
     "api-getaway": {

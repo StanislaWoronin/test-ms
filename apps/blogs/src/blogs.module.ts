@@ -6,17 +6,13 @@ import { typeOrmConfig } from '../../../libs/provisers';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { Microservices } from '../../../libs/shared';
 import { jwtOption } from '../../../libs/options';
+import { getTransportOptions } from '../../../libs/options/transport-options.switcher';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
     JwtModule.register(jwtOption),
-    ClientsModule.register([
-      {
-        name: Microservices.Blogs,
-        transport: Transport.TCP,
-      },
-    ]),
+    ClientsModule.register([getTransportOptions(Microservices.Blogs)]),
   ],
   controllers: [BlogsController],
 })

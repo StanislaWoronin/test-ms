@@ -3,7 +3,7 @@ import { HttpStatus, INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { ApiGetawayModule } from '../src/api-getaway.module';
 import { RegistrationDto } from '../../../libs/users/dto';
-import { BlogDto, CreateBlogDto } from '../../../libs/blogs/dto';
+import { BlogDto } from '../../../libs/blogs/dto';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -12,7 +12,6 @@ describe('AppController (e2e)', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [ApiGetawayModule],
     }).compile();
-
     app = moduleFixture.createNestApplication();
     await app.init();
   });

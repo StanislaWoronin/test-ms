@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import { Transport } from '@nestjs/microservices';
 dotenv.config();
 
 export const settings = {
@@ -7,12 +8,13 @@ export const settings = {
   },
   secretKey: process.env.SECRET_KEY,
   port: {
-    apiGetaway: Number(process.env.API_GATEWAY_PORT),
-    auth: Number(process.env.AUTH_SERVICE_PORT),
-    blogs: Number(process.env.BLOG_SERVICE_PORT),
+    API_GATEWAY_SERVICE: Number(process.env.API_GATEWAY_PORT),
+    AUTH_SERVICE: Number(process.env.AUTH_SERVICE_PORT),
+    BLOG_SERVICE: Number(process.env.BLOG_SERVICE_PORT),
   },
   token: {
     expiresIn: '1d',
   },
   saltRounds: 10,
+  transportName: Transport.TCP,
 };

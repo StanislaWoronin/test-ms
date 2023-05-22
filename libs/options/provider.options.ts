@@ -1,8 +1,5 @@
 import { Microservices, settings } from '../shared';
-import {
-  ClientProviderOptions,
-  Transport,
-} from '@nestjs/microservices';
+import { ClientProviderOptions, Transport } from '@nestjs/microservices';
 
 export const getProviderOptions = (
   serverName: Microservices,
@@ -28,6 +25,6 @@ export const getProviderOptions = (
             durable: true,
           },
         },
-      }
+      };
   }
 };

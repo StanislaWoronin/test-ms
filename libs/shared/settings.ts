@@ -4,9 +4,8 @@ dotenv.config();
 
 export const settings = {
   postgresConnectionOptions: {
-    host: process.env.HOST,
     port: Number(process.env.PORT),
-    username: process.env.USERNAME,
+    username: process.env.NAME,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
   },
@@ -24,5 +23,5 @@ export const settings = {
     expiresIn: '1d',
   },
   saltRounds: 10,
-  transportName: Transport.RMQ,
+  transportName: Transport.TCP,
 };

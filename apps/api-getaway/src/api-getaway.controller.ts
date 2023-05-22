@@ -34,7 +34,7 @@ export class ApiGetawayController {
     });
   }
 
-  @UseGuards(AuthBearerGuard)
+  // @UseGuards(AuthBearerGuard)
   @Get('blogs')
   async getBlogs(@CurrentUser() userId: string) {
     const pattern = { cmd: Commands.GetBlogs };

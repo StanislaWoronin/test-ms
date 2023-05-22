@@ -4,12 +4,13 @@ import { DataSource } from 'typeorm';
 import { MessagePattern } from '@nestjs/microservices';
 import { CreateBlogDto } from '../../../libs/blogs/dto';
 import { Blog } from '../../../libs/provisers/entities';
+import { Commands } from '../../../libs/shared';
 
 @Controller()
 export class BlogsController {
   constructor(@InjectDataSource() private dataSource: DataSource) {}
 
-  @MessagePattern({ cmd: 'create_blog' })
+  @MessagePattern({ cmd: Commands.CreateBlog })
   async createBlog(@Body() createBlogDto: CreateBlogDto) {
     const blogAggregate = Blog.create(createBlogDto);
     const createdBlog = await this.dataSource
@@ -19,12 +20,12 @@ export class BlogsController {
     return createdBlog;
   }
 
-  @MessagePattern({ cmd: 'get_blogs' })
+  @MessagePattern({ cmd: Commands.GetBlogs })
   async getBlogs(@Body() id: { userId: string }) {
+    console.log('blogs ms - get blogs');
     const res = await this.dataSource.getRepository(Blog).findAndCount({
       where: { userId: id.userId },
     });
-
     return res;
   }
 }

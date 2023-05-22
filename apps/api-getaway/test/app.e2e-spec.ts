@@ -4,6 +4,7 @@ import request from 'supertest';
 import { ApiGetawayModule } from '../src/api-getaway.module';
 import { RegistrationDto } from '../../../libs/users/dto';
 import { BlogDto } from '../../../libs/blogs/dto';
+import { settings } from '../../../libs/shared';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;

@@ -3,6 +3,14 @@ import { Transport } from '@nestjs/microservices';
 dotenv.config();
 
 export const settings = {
+  postgresConnectionOptions: {
+    host: process.env.HOST,
+    port: Number(process.env.PORT),
+    username: process.env.USERNAME,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
+  },
+  rmqUrl: process.env.RMQ_URL,
   host: {
     localHost: '0.0.0.0',
   },

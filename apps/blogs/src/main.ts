@@ -2,18 +2,25 @@ import { NestFactory } from '@nestjs/core';
 import {
   MicroserviceOptions,
   RmqOptions,
+  TcpOptions,
   Transport,
 } from '@nestjs/microservices';
 import { BlogsModule } from './blogs.module';
-import { Microservices } from '../../../libs/shared';
-import { getTransportOptions } from '../../../libs/options/transport-options.switcher';
+import { Microservices, settings } from '../../../libs/shared';
+
 
 async function bootstrap() {
-  const options = getTransportOptions(Microservices.Blogs);
+  const tcpOptions: TcpOptions = {
+    transport: Transport.TCP,
+    options: {
+      host: settings.host.localHost,
+      port: settings.port[Microservices.Blogs],
+    },
+  };
 
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     BlogsModule,
-    options,
+    tcpOptions,
   );
 
   await app.listen();

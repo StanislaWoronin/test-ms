@@ -1,24 +1,13 @@
-import { NestFactory } from '@nestjs/core';
-import {
-  MicroserviceOptions,
-  TcpOptions,
-  Transport,
-} from '@nestjs/microservices';
-import { ApiGetawayModule } from './api-getaway.module';
-import { Microservices, settings } from '../../../libs/shared';
+import {NestFactory} from '@nestjs/core';
+import {MicroserviceOptions,} from '@nestjs/microservices';
+import {ApiGetawayModule} from './api-getaway.module';
+import {Microservices} from '../../../libs/shared';
+import {getTransportOptions} from "../../../libs/options";
 
 async function bootstrap() {
-  const tcpOptions: TcpOptions = {
-    transport: Transport.TCP,
-    options: {
-      host: settings.host.localHost,
-      port: settings.port[Microservices.Auth],
-    },
-  };
-
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     ApiGetawayModule,
-    tcpOptions,
+      getTransportOptions(Microservices.ApiGetaway),
   );
 
   await app.listen();

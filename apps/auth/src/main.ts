@@ -1,25 +1,13 @@
-import { NestFactory } from '@nestjs/core';
-import { AuthModule } from './auth.module';
-import {
-  MicroserviceOptions,
-  TcpOptions,
-  Transport,
-} from '@nestjs/microservices';
-import { Microservices, settings } from '../../../libs/shared';
-import { getTcpOptions } from '../../../libs/options/transport-options.switcher';
+import {NestFactory} from '@nestjs/core';
+import {AuthModule} from './auth.module';
+import {MicroserviceOptions,} from '@nestjs/microservices';
+import {Microservices} from '../../../libs/shared';
+import {getTransportOptions} from "../../../libs/options";
 
 async function bootstrap() {
-  const tcpOptions: TcpOptions = {
-    transport: Transport.TCP,
-    options: {
-      host: settings.host.localHost,
-      port: settings.port[Microservices.Auth],
-    },
-  };
-
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AuthModule,
-    tcpOptions,
+      getTransportOptions(Microservices.Auth),
   );
 
   await app.listen();

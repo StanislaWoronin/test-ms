@@ -24,5 +24,5 @@ export const settings = {
     expiresIn: '1d',
   },
   saltRounds: 10,
-  transportName: Transport.TCP,
+  transportName: Transport.RMQ,
 };

@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import {
-  MicroserviceOptions,
-  RmqOptions,
+  MicroserviceOptions, RmqOptions,
   TcpOptions,
   Transport,
 } from '@nestjs/microservices';
@@ -18,9 +17,20 @@ async function bootstrap() {
     },
   };
 
+  const rmqOptions: RmqOptions = {
+    transport: Transport.RMQ,
+    options: {
+      urls: [settings.rmqUrl],
+      queue: Microservices.Blogs,
+      queueOptions: {
+        durable: true,
+      },
+    },
+  }
+
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     BlogsModule,
-    tcpOptions,
+      rmqOptions,
   );
 
   await app.listen();

@@ -1,13 +1,10 @@
 import { Microservices, settings } from '../shared';
 import {
   ClientProviderOptions,
-  ClientsModuleOptions,
-  RmqOptions,
-  TcpOptions,
   Transport,
 } from '@nestjs/microservices';
 
-export const getTcpOptions = (
+export const getProviderOptions = (
   serverName: Microservices,
 ): ClientProviderOptions => {
   switch (settings.transportName) {
@@ -20,16 +17,17 @@ export const getTcpOptions = (
           port: settings.port[serverName],
         },
       };
-    // case Transport.RMQ:
-    //   return {
-    //     transport: Transport.RMQ,
-    //     options: {
-    //       urls: ['amqp://localhost:5672'],
-    //       queue: serverName,
-    //       queueOptions: {
-    //         durable: true,
-    //       },
-    //     },
-    //   } as RmqOptions;
+    case Transport.RMQ:
+      return {
+        name: serverName,
+        transport: Transport.RMQ,
+        options: {
+          urls: [settings.rmqUrl],
+          queue: serverName,
+          queueOptions: {
+            durable: true,
+          },
+        },
+      }
   }
 };

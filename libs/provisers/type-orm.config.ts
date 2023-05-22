@@ -5,11 +5,11 @@ import { settings } from '../shared';
 
 export const typeOrmConfig: PostgresConnectionOptions = {
   type: 'postgres',
-  host: settings.postgresConnectionOptions.host,
-  port: settings.postgresConnectionOptions.port,
-  username: settings.postgresConnectionOptions.username,
-  password: settings.postgresConnectionOptions.password,
-  database: settings.postgresConnectionOptions.database,
+  host: 'localhost',
+  port: 5432,
+  username: 'postgres',
+  password: 'admin',
+  database: 'test_ms',
   synchronize: true,
   migrations: [__dirname + '/migrations-files/**/*{.ts,.js}'],
   entities: [Blog, User],

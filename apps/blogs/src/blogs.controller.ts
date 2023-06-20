@@ -1,10 +1,10 @@
-import { Body, Controller, Get } from '@nestjs/common';
-import { InjectDataSource } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
-import { MessagePattern } from '@nestjs/microservices';
-import { CreateBlogDto } from '../../../libs/blogs/dto';
-import { Blog } from '../../../libs/provisers/entities';
-import { Commands } from '../../../libs/shared';
+import {Body, Controller} from '@nestjs/common';
+import {InjectDataSource} from '@nestjs/typeorm';
+import {DataSource} from 'typeorm';
+import {MessagePattern} from '@nestjs/microservices';
+import {CreateBlogDto} from '../../../libs/blogs/dto';
+import {Blog} from '../../../libs/provisers/entities';
+import {Commands} from '../../../libs/shared';
 
 @Controller()
 export class BlogsController {
@@ -13,11 +13,9 @@ export class BlogsController {
   @MessagePattern({ cmd: Commands.CreateBlog })
   async createBlog(@Body() createBlogDto: CreateBlogDto) {
     const blogAggregate = Blog.create(createBlogDto);
-    const createdBlog = await this.dataSource
-      .getRepository(Blog)
-      .save(blogAggregate);
-
-    return createdBlog;
+    return await this.dataSource
+        .getRepository(Blog)
+        .save(blogAggregate);
   }
 
   @MessagePattern({ cmd: Commands.GetBlogs })
